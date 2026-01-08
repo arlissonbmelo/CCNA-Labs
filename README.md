@@ -1,2 +1,2 @@
 # CCNA-Labs
-Laboratório Porte médio
+Rede Porte médio
