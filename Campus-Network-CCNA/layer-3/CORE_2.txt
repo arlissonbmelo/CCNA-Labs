@@ -1,0 +1,429 @@
+CORE_2#show running-config 
+Building configuration...
+
+Current configuration : 2348 bytes
+!
+version 16.3.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname CORE_2
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+ip routing
+!
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1-1005 priority 4096
+!
+!
+!
+!
+!
+!
+interface Port-channel10
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/1
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/4
+ no switchport
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+ switchport mode trunk
+ channel-group 10 mode active
+!
+interface GigabitEthernet1/0/23
+ switchport mode trunk
+ channel-group 10 mode active
+!
+interface GigabitEthernet1/0/24
+ no switchport
+ ip address 10.20.20.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 00d0.ff0c.8c01
+ ip address 192.168.10.2 255.255.255.0
+ ip helper-address 10.20.20.2
+ standby 10 ip 192.168.10.254
+!
+interface Vlan20
+ mac-address 00d0.ff0c.8c02
+ ip address 192.168.20.2 255.255.255.0
+ ip helper-address 10.20.20.2
+ standby 20 ip 192.168.20.254
+!
+interface Vlan30
+ mac-address 00d0.ff0c.8c03
+ ip address 192.168.30.2 255.255.255.0
+ ip helper-address 10.20.20.2
+ standby 30 ip 192.168.30.254
+!
+interface Vlan40
+ mac-address 00d0.ff0c.8c04
+ ip address 172.16.9.2 255.255.255.0
+ standby 40 ip 172.16.9.254
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.20.20.2 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
+
+
+DHCP helper address vlan´s
+CORE_2#show ip interface vlan 10
+Vlan10 is up, line protocol is up
+  Internet address is 192.168.10.2/24
+  Broadcast address is 255.255.255.255 
+  Address determined by setup command 
+  MTU is 1500 bytes 
+  Helper address is 10.20.20.2
+  Directed broadcast forwarding is disabled 
+  Outgoing access list is not set 
+  Inbound  access list is not set 
+  Proxy ARP is enabled
+  Local Proxy ARP is disabled 
+  Security level is default 
+  Split horizon is enabled 
+  ICMP redirects are always sent 
+  ICMP unreachables are always sent 
+  ICMP mask replies are never sent 
+  IP fast switching is disabled 
+  IP fast switching on the same interface is disabled 
+  IP Null turbo vector 
+  IP multicast fast switching is disabled 
+  IP multicast distributed fast switching is disabled 
+  IP route-cache flags are None 
+  Router Discovery is disabled 
+  IP output packet accounting is disabled 
+  IP access violation accounting is disabled 
+  TCP/IP header compression is disabled 
+  RTP/IP header compression is disabled 
+  Probe proxy name replies are disabled 
+  Policy routing is disabled 
+  Network address translation is disable 
+  WCCP Redirect outbound is disabled 
+  WCCP Redirect inbound is disabled 
+  WCCP Redirect exclude is disabled 
+  BGP Policy Mapping is disabled 
+
+
+CORE_2#show ip interface vlan 20
+Vlan20 is up, line protocol is up
+  Internet address is 192.168.20.2/24
+  Broadcast address is 255.255.255.255 
+  Address determined by setup command 
+  MTU is 1500 bytes 
+  Helper address is 10.20.20.2
+  Directed broadcast forwarding is disabled 
+  Outgoing access list is not set 
+  Inbound  access list is not set 
+  Proxy ARP is enabled
+  Local Proxy ARP is disabled 
+  Security level is default 
+  Split horizon is enabled 
+  ICMP redirects are always sent 
+  ICMP unreachables are always sent 
+  ICMP mask replies are never sent 
+  IP fast switching is disabled 
+  IP fast switching on the same interface is disabled 
+  IP Null turbo vector 
+  IP multicast fast switching is disabled 
+  IP multicast distributed fast switching is disabled 
+  IP route-cache flags are None 
+  Router Discovery is disabled 
+  IP output packet accounting is disabled 
+  IP access violation accounting is disabled 
+  TCP/IP header compression is disabled 
+  RTP/IP header compression is disabled 
+  Probe proxy name replies are disabled 
+  Policy routing is disabled 
+  Network address translation is disable 
+  WCCP Redirect outbound is disabled 
+  WCCP Redirect inbound is disabled 
+  WCCP Redirect exclude is disabled 
+  BGP Policy Mapping is disabled 
+
+
+CORE_2#show ip interface vlan 30
+Vlan30 is up, line protocol is up
+  Internet address is 192.168.30.2/24
+  Broadcast address is 255.255.255.255 
+  Address determined by setup command 
+  MTU is 1500 bytes 
+  Helper address is 10.20.20.2
+  Directed broadcast forwarding is disabled 
+  Outgoing access list is not set 
+  Inbound  access list is not set 
+  Proxy ARP is enabled
+  Local Proxy ARP is disabled 
+  Security level is default 
+  Split horizon is enabled 
+  ICMP redirects are always sent 
+  ICMP unreachables are always sent 
+  ICMP mask replies are never sent 
+  IP fast switching is disabled 
+  IP fast switching on the same interface is disabled 
+  IP Null turbo vector 
+  IP multicast fast switching is disabled 
+  IP multicast distributed fast switching is disabled 
+  IP route-cache flags are None 
+  Router Discovery is disabled 
+  IP output packet accounting is disabled 
+  IP access violation accounting is disabled 
+  TCP/IP header compression is disabled 
+  RTP/IP header compression is disabled 
+  Probe proxy name replies are disabled 
+  Policy routing is disabled 
+  Network address translation is disable 
+  WCCP Redirect outbound is disabled 
+  WCCP Redirect inbound is disabled 
+  WCCP Redirect exclude is disabled 
+  BGP Policy Mapping is disabled 
+
+CORE_2#
+end
+
+DTP 
+CORE_2#show interfaces trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Po10        on           802.1q         trunking      1
+Gig1/0/1    on           802.1q         trunking      1
+Gig1/0/2    on           802.1q         trunking      1
+Gig1/0/3    on           802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Po10        1-1005
+Gig1/0/1    1-1005
+Gig1/0/2    1-1005
+Gig1/0/3    1-1005
+
+Port        Vlans allowed and active in management domain
+Po10        1,10,20,30,40
+Gig1/0/1    1,10,20,30,40
+Gig1/0/2    1,10,20,30,40
+Gig1/0/3    1,10,20,30,40
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po10        1,10,20,30,40
+Gig1/0/1    1
+Gig1/0/2    1,10,20,30,40
+Gig1/0/3    1
+end
+
+HSRP
+CORE_2#show standby brief 
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State    Active          Standby         Virtual IP
+Vl10        10   100   Standby  192.168.10.1    local           192.168.10.254 
+Vl20        20   100   Standby  192.168.20.1    local           192.168.20.254 
+Vl30        30   100   Standby  192.168.30.1    local           192.168.30.254 
+Vl40        40   100   Standby  172.16.9.1      local           172.16.9.254   
+
+end
+
+RSPT priority 4096
+CORE_2#show spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    1
+             Address     0030.A3B0.CBD8
+             Cost        3
+             Port        29(Port-channel10)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    4097  (priority 4096 sys-id-ext 1)
+             Address     00D0.FF0C.8C12
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi1/0/3          Desg FWD 4         128.3    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/1          Desg FWD 4         128.1    P2p
+Po10             Root FWD 3         128.29   Shr
+
+VLAN0010
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    10
+             Address     0030.A3B0.CBD8
+             Cost        3
+             Port        29(Port-channel10)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    4106  (priority 4096 sys-id-ext 10)
+             Address     00D0.FF0C.8C12
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi1/0/3          Altn BLK 4         128.3    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/1          Altn BLK 4         128.1    P2p
+Po10             Root FWD 3         128.29   Shr
+
+VLAN0020
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    20
+             Address     0030.A3B0.CBD8
+             Cost        3
+             Port        29(Port-channel10)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    4116  (priority 4096 sys-id-ext 20)
+             Address     00D0.FF0C.8C12
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi1/0/3          Altn BLK 4         128.3    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/1          Altn BLK 4         128.1    P2p
+Po10             Root FWD 3         128.29   Shr
+
+VLAN0030
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    30
+             Address     0030.A3B0.CBD8
+             Cost        3
+             Port        29(Port-channel10)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    4126  (priority 4096 sys-id-ext 30)
+             Address     00D0.FF0C.8C12
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi1/0/3          Altn BLK 4         128.3    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/1          Altn BLK 4         128.1    P2p
+Po10             Root FWD 3         128.29   Shr
+
+VLAN0040
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    40
+             Address     0030.A3B0.CBD8
+             Cost        3
+             Port        29(Port-channel10)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    4136  (priority 4096 sys-id-ext 40)
+             Address     00D0.FF0C.8C12
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi1/0/3          Altn BLK 4         128.3    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/1          Altn BLK 4         128.1    P2p
+Po10             Root FWD 3         128.29   Shr
+
+
+end
+
+
+

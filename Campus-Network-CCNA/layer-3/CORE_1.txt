@@ -1,0 +1,319 @@
+CORE_1#show running-config 
+Building configuration...
+
+Current configuration : 2513 bytes
+!
+version 16.3.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname CORE_1
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+ip routing
+!
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1-1005 priority 0
+!
+!
+!
+!
+!
+!
+interface Port-channel10
+!
+interface GigabitEthernet1/0/1
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+ switchport access vlan 30
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/4
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+ channel-group 10 mode active
+!
+interface GigabitEthernet1/0/23
+ channel-group 10 mode active
+!
+interface GigabitEthernet1/0/24
+ no switchport
+ ip address 10.10.10.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 0030.a3b0.cb01
+ ip address 192.168.10.1 255.255.255.0
+ ip helper-address 172.16.9.254
+ ip helper-address 172.16.9.1
+ standby 10 ip 192.168.10.254
+ standby 10 priority 200
+ standby 10 preempt
+!
+interface Vlan20
+ mac-address 0030.a3b0.cb02
+ ip address 192.168.20.1 255.255.255.0
+ ip helper-address 172.16.9.1
+ standby 20 ip 192.168.20.254
+ standby 20 priority 200
+ standby 20 preempt
+!
+interface Vlan30
+ mac-address 0030.a3b0.cb03
+ ip address 192.168.30.1 255.255.255.0
+ ip helper-address 172.16.9.1
+ standby 30 ip 192.168.30.254
+ standby 30 priority 200
+ standby 30 preempt
+!
+interface Vlan40
+ mac-address 0030.a3b0.cb04
+ ip address 172.16.9.1 255.255.255.0
+ ip helper-address 172.16.9.1
+ standby 40 ip 172.16.9.254
+ standby 40 priority 200
+ standby 40 preempt
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.10.10.2 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
+
+
+... DTP
+CORE_1#show interfaces trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Po10        auto         n-802.1q       trunking      1
+Gig1/0/1    on           802.1q         trunking      1
+Gig1/0/2    on           802.1q         trunking      1
+Gig1/0/3    on           802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Po10        1-1005
+Gig1/0/1    1-1005
+Gig1/0/2    1-1005
+Gig1/0/3    1-1005
+
+Port        Vlans allowed and active in management domain
+Po10        1,10,20,30,40
+Gig1/0/1    1,10,20,30,40
+Gig1/0/2    1,10,20,30,40
+Gig1/0/3    1,10,20,30,40
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po10        1,10,20,30,40
+Gig1/0/1    1,10,20,30,40
+Gig1/0/2    1,10,20,30,40
+Gig1/0/3    1,10,20,30,40
+
+end
+
+HSRP
+CORE_1#show standby brief 
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State    Active          Standby         Virtual IP
+Vl10        10   200 P Active   local           192.168.10.2    192.168.10.254 
+Vl20        20   200 P Active   local           192.168.20.2    192.168.20.254 
+Vl30        30   200 P Active   local           192.168.30.2    192.168.30.254 
+Vl40        40   200 P Active   local           172.16.9.2      172.16.9.254 
+
+end
+
+Port-Channel 
+RSTP 
+CORE_1 is the root bridge*
+CORE_1#show spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    1
+             Address     0030.A3B0.CBD8
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    1  (priority 0 sys-id-ext 1)
+             Address     0030.A3B0.CBD8
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 3         128.29   Shr
+Gi1/0/1          Desg FWD 4         128.1    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/3          Desg FWD 4         128.3    P2p
+
+VLAN0010
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    10
+             Address     0030.A3B0.CBD8
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    10  (priority 0 sys-id-ext 10)
+             Address     0030.A3B0.CBD8
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 3         128.29   Shr
+Gi1/0/1          Desg FWD 4         128.1    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/3          Desg FWD 4         128.3    P2p
+
+VLAN0020
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    20
+             Address     0030.A3B0.CBD8
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    20  (priority 0 sys-id-ext 20)
+             Address     0030.A3B0.CBD8
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 3         128.29   Shr
+Gi1/0/1          Desg FWD 4         128.1    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/3          Desg FWD 4         128.3    P2p
+
+VLAN0030
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    30
+             Address     0030.A3B0.CBD8
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    30  (priority 0 sys-id-ext 30)
+             Address     0030.A3B0.CBD8
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 3         128.29   Shr
+Gi1/0/1          Desg FWD 4         128.1    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/3          Desg FWD 4         128.3    P2p
+
+VLAN0040
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    40
+             Address     0030.A3B0.CBD8
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    40  (priority 0 sys-id-ext 40)
+             Address     0030.A3B0.CBD8
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po10             Desg FWD 3         128.29   Shr
+Gi1/0/1          Desg FWD 4         128.1    P2p
+Gi1/0/2          Desg FWD 4         128.2    P2p
+Gi1/0/3          Desg FWD 4         128.3    P2p
+
+end
+
+
+
+
+
